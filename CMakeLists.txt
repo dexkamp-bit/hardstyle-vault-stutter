@@ -18,13 +18,13 @@ add_subdirectory("${JUCE_DIR}" JUCE)
 juce_add_plugin(HardstyleVaultStutter
     COMPANY_NAME "Dexkamp"
     IS_SYNTH FALSE
-    NEEDS_MIDI_INPUT FALSE
+    NEEDS_MIDI_INPUT TRUE
     NEEDS_MIDI_OUTPUT FALSE
     IS_MIDI_EFFECT FALSE
     EDITOR_WANTS_KEYBOARD_FOCUS FALSE
-    COPY_PLUGIN_AFTER_BUILD FALSE
-    PLUGIN_MANUFACTURER_CODE Dxkm
-    PLUGIN_CODE Hvst
+    COPY_PLUGIN_AFTER_BUILD TRUE
+    PLUGIN_MANUFACTURER_CODE Dxkp
+    PLUGIN_CODE HVST
     FORMATS VST3 AU Standalone
     PRODUCT_NAME "Hardstyle Vault Stutter"
 )
@@ -57,3 +57,10 @@ target_link_libraries(HardstyleVaultStutter PRIVATE
 target_include_directories(HardstyleVaultStutter PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
+
+# Compiler flags for warnings
+if(MSVC)
+    target_compile_options(HardstyleVaultStutter PRIVATE /W4)
+else()
+    target_compile_options(HardstyleVaultStutter PRIVATE -Wall -Wextra -Wpedantic)
+endif()
